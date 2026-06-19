@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Graphics — Betty Amron</title>
+
+  <script>
+    (function (d) {
+      var config = { kitId: 'our3wnf', scriptTimeout: 3000, async: true },
+        h = d.documentElement, t = setTimeout(function () { h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive"; }, config.scriptTimeout), tk = d.createElement("script"), f = false, s = d.getElementsByTagName("script")[0], a;
+      h.className += " wf-loading"; tk.src = 'https://use.typekit.net/' + config.kitId + '.js'; tk.async = true;
+      tk.onload = tk.onreadystatechange = function () { a = this.readyState; if (f || a && a != "complete" && a != "loaded") return; f = true; clearTimeout(t); try { Typekit.load(config) } catch (e) { } };
+      s.parentNode.insertBefore(tk, s);
+    })(document);
+  </script>
+
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --white: #f5f5f0;
+      --font-display: "adobe-ming-std", serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: var(--font-display);
+    }
+
+    /* ── PAGE LAYOUT ── */
+    .page {
+      padding: 3rem 3rem 6rem;
+      max-width: 100%;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(50pt, 1vw, 0.75rem);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 3rem;
+    }
+
+    /* ── PROJECT BLOCK ── */
+    .project {
+      margin-bottom: 5rem;
+      border-top: 1px solid #ddd;
+      padding-top: 2rem;
+    }
+
+    /* ── SLIDESHOW ── */
+    .slideshow {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: #e0e0da;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .slideshow.square {
+      aspect-ratio: 1 / 1;
+      width: 75%;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 1.5rem;
+    }
+
+    .slideshow.sevenbyfive {
+      aspect-ratio: 7 / 5;
+    }
+
+    .slideshow.fivebyseven {
+      aspect-ratio: 5 / 7;
+      width: 65%;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 1.5rem;
+    }
+
+    .slides-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    .slide {
+      min-width: 100%;
+      height: 100%;
+      flex-shrink: 0;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* placeholder when no image */
+    .slide-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #e8e8e2;
+    }
+
+    .slide-placeholder span {
+      font-family: var(--font-display);
+      font-weight: 100;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #bbb;
+    }
+
+    /* ── SLIDE CONTROLS ── */
+    .slide-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 1rem;
+      z-index: 10;
+      color: var(--black);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .slideshow:hover .slide-btn {
+      opacity: 1;
+    }
+
+    .slide-btn.prev {
+      left: 0;
+    }
+
+    .slide-btn.next {
+      right: 0;
+    }
+
+    .slide-btn svg {
+      width: 96px;
+      height: 96px;
+      stroke: var(--black);
+      stroke-width: 1;
+      fill: none;
+    }
+
+    /* dots */
+    .slide-dots {
+      position: absolute;
+      bottom: 0.75rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 10;
+    }
+
+    .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .dot.active {
+      background: var(--black);
+    }
+
+    /* ── PROJECT META ── */
+    .project-meta {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 1rem 2rem;
+      align-items: start;
+    }
+
+    .project-title {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(30pt, 1.8vw, 1.4rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.1;
+      color: var(--black);
+    }
+
+    .project-year {
+      font-family: var(--font-display);
+      font-weight: 100;
+      font-size: 20pt;
+      letter-spacing: 0.15em;
+      color: #999;
+      margin-top: 0.4rem;
+    }
+
+    .project-description {
+      font-family: var(--font-display);
+      font-weight: 100;
+      font-size: 20pt;
+      line-height: 1.9;
+      color: #555;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .page {
+        padding: 2rem 1.25rem 4rem;
+      }
+
+      .project-meta {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page">
+
+    <p class="section-title">Graphics</p>
+
+    <!--
+  ╔════════════════════════════════════════════════════════════════╗
+  ║  HOW TO ADD IMAGES:                                            ║
+  ║  Each project has 5 slides. For each slide, replace the        ║
+  ║  <div class="slide-placeholder"> with:                         ║
+  ║  <div class="slide"><img src="images/yourimage.jpg" alt="..."> ║
+  ║  </div>                                                        ║
+  ╚════════════════════════════════════════════════════════════════╝
+  -->
+
+    <!-- ── PROJECT 1 ── -->
+    <div class="project">
+      <div class="slideshow sevenbyfive" data-index="0">
+        <div class="slides-track">
+          <div class="slide"><img src="images/cp01.JPG" alt="Commerc Patrimoni post card set"></div>
+          <div class="slide"><img src="images/cp02.JPG" alt="Commerc Patrimoni back of post card"></div>
+          <div class="slide"><img src="images/cp03.JPG" alt="Commerc Patrimoni Herboristeria del Rei"></div>
+          <div class="slide"><img src="images/cp04.JPG" alt="Commerc Patrimoni Ganiveteria Roca"></div>
+          <div class="slide"><img src="images/cp05.JPG" alt="Commerc Patrimoni La Italiana"></div>
+          <div class="slide"><img src="images/cp06.JPG" alt="Commerc Patrimoni Guantería y Complementos Alonso"></div>
+          <div class="slide"><img src="images/cp07.JPG" alt="Commerc Patrimoni Dulcinea"></div>
+          <div class="slide"><img src="images/cp08.JPG" alt="Commerc Patrimoni Granja M. Viader"></div>
+          <div class="slide"><img src="images/cp09.JPG" alt="Commerc Patrimoni Cafe de L'Opera"></div>
+          <div class="slide"><img src="images/cp10.JPG" alt="Commerc Patrimoni Sombrerería Obach"></div>
+          <div class="slide"><img src="images/cp11.JPG" alt="Commerc Patrimoni Planelles Donat"></div>
+        </div>
+        <button class="slide-btn prev" aria-label="Previous"><svg viewBox="0 0 24 24">
+            <polyline points="15 18 9 12 15 6" />
+          </svg></button>
+        <button class="slide-btn next" aria-label="Next"><svg viewBox="0 0 24 24">
+            <polyline points="9 6 15 12 9 18" />
+          </svg></button>
+        <div class="slide-dots">
+          <div class="dot active"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+
+        </div>
+      </div>
+      <div class="project-meta">
+        <div>
+          <div class="project-title">Commerc Patrimoni Illustration</div>
+          <div class="project-year">Spring 2026</div>
+        </div>
+        <p class="project-description">Created for a fictional organization called Commerc Patrimoni, this project
+          focuses on bringing awareness and support to historic storefronts in Barcelona. The design system includes a
+          logo
+          design for Commerc Patrimoni set inside of a series of illustrated information cards for each individual
+          store.</p>
+      </div>
+    </div>
+
+    <!-- ── PROJECT 2 ── -->
+    <div class="project">
+      <div class="slideshow sevenbyfive" data-index="0">
+        <div class="slides-track">
+          <div class="slide"><img src="images/numb01.png" alt="Number system"></div>
+          <div class="slide"><img src="images/numb02.png" alt="Original typeface"></div>
+          <div class="slide"><img src="images/numb03.png" alt="Conversation with typeface"></div>
+        </div>
+        <button class="slide-btn prev" aria-label="Previous"><svg viewBox="0 0 24 24">
+            <polyline points="15 18 9 12 15 6" />
+          </svg></button>
+        <button class="slide-btn next" aria-label="Next"><svg viewBox="0 0 24 24">
+            <polyline points="9 6 15 12 9 18" />
+          </svg></button>
+        <div class="slide-dots">
+          <div class="dot active"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+
+        </div>
+      </div>
+      <div class="project-meta">
+        <div>
+          <div class="project-title">Number System and Typeface</div>
+          <div class="project-year">Fall 2024</div>
+        </div>
+        <p class="project-description">Devised a logical number system, and then used the elements from that system to
+          create a custom typeface. The typeface was then used to personify an overheard conversation.</p>
+      </div>
+    </div>
+
+    <!-- ── PROJECT 3 ── -->
+    <div class="project">
+      <div class="slideshow fivebyseven" data-index="0">
+        <div class="slides-track">
+          <div class="slide"><img src="images/micmac01.jpg" alt="Micro Macro full image"></div>
+          <div class="slide"><img src="images/micmac02.png" alt="Micro Macro detail lion image"></div>
+          <div class="slide"><img src="images/micmac03.png" alt="Micro Macro detail girls image"></div>
+        </div>
+        <button class="slide-btn prev" aria-label="Previous"><svg viewBox="0 0 24 24">
+            <polyline points="15 18 9 12 15 6" />
+          </svg></button>
+        <button class="slide-btn next" aria-label="Next"><svg viewBox="0 0 24 24">
+            <polyline points="9 6 15 12 9 18" />
+          </svg></button>
+        <div class="slide-dots">
+          <div class="dot active"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+
+        </div>
+      </div>
+      <div class="project-meta">
+        <div>
+          <div class="project-title">Micro Macro</div>
+          <div class="project-year">Fall 2023</div>
+        </div>
+        <p class="project-description">Includes highly detailed "micro" images within a larger scale "macro"
+          image. Includes a room, photograph, and lion statue from prominenet moments during the move to New York. </p>
+      </div>
+    </div>
+
+
+  </div><!-- /page -->
+
+  <script>
+    // ── Slideshow logic ──
+    document.querySelectorAll('.slideshow').forEach(show => {
+      const track = show.querySelector('.slides-track');
+      const dots = show.querySelectorAll('.dot');
+      const total = show.querySelectorAll('.slide').length;
+      let current = 0;
+
+      function goTo(n) {
+        current = (n + total) % total;
+        track.style.transform = `translateX(-${current * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      }
+
+      show.querySelector('.prev').addEventListener('click', () => goTo(current - 1));
+      show.querySelector('.next').addEventListener('click', () => goTo(current + 1));
+      dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+    });
+  </script>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const c = params.get("color");
+    if (c) {
+      const el = document.querySelector(".section-title");
+      if (el) el.style.color = decodeURIComponent(c);
+    }
+  </script>
+</body>
+
+</html>

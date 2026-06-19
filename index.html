@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Betty Amron</title>
+
+  <script>
+    (function (d) {
+      var config = { kitId: 'our3wnf', scriptTimeout: 3000, async: true },
+        h = d.documentElement, t = setTimeout(function () { h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive"; }, config.scriptTimeout), tk = d.createElement("script"), f = false, s = d.getElementsByTagName("script")[0], a;
+      h.className += " wf-loading"; tk.src = 'https://use.typekit.net/' + config.kitId + '.js'; tk.async = true;
+      tk.onload = tk.onreadystatechange = function () { a = this.readyState; if (f || a && a != "complete" && a != "loaded") return; f = true; clearTimeout(t); try { Typekit.load(config) } catch (e) { } };
+      s.parentNode.insertBefore(tk, s);
+    })(document);
+  </script>
+
+  <style>
+    :root {
+      --black: #1b1b1b;
+      --white: #f6f7f4;
+      --sidebar-width: 33.333vw;
+      --font-display: "adobe-ming-std", serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+      background: #1b1b1b;
+      transition: background 0.7s ease;
+    }
+
+    body.revealed {
+      background: var(--black);
+    }
+
+    /* ── LANDING OVERLAY ── */
+    #landing {
+      position: fixed;
+      inset: 0;
+      background: #1b1b1b;
+      z-index: 50;
+      pointer-events: none;
+      transition: opacity 0.7s ease;
+    }
+
+    #landing.fade-out {
+      opacity: 0;
+    }
+
+    /* ── LOGO ── */
+    #logo-hero {
+      position: fixed;
+      z-index: 200;
+      will-change: top, left, width;
+    }
+
+    #logo-hero img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    #logo-hero.landed {
+      cursor: pointer;
+    }
+
+    #logo-hero.landed:hover img {
+      transform: scale(1.08);
+    }
+
+    /* ── LAYOUT ── */
+    .layout {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: var(--sidebar-width);
+      min-width: var(--sidebar-width);
+      height: 100vh;
+      background: #1b1b1b;
+      border-right: none;
+      transition: background 0.9s ease;
+      display: flex;
+      flex-direction: column;
+      padding: 2.5rem 2rem 2.5rem 2.5rem;
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 100;
+    }
+
+    .sidebar.dark {
+      background: var(--black);
+    }
+
+    .logo-placeholder {
+      width: 140px;
+      height: 60px;
+      visibility: hidden;
+      flex-shrink: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      margin-top: auto;
+      opacity: 0;
+      transition: opacity 0.7s ease;
+    }
+
+    nav.visible {
+      opacity: 1;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav ul li a {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(1.8rem, 3vw, 3rem);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: #f6f7f4;
+      text-decoration: none;
+      display: block;
+      padding: 0.1rem 0;
+      line-height: 1.15;
+      transition: color 0.25s ease;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      color: var(--hover-color, var(--white));
+    }
+
+    /* ── RIGHT PANEL ── */
+    .main-content {
+      margin-left: var(--sidebar-width);
+      width: calc(100vw - var(--sidebar-width));
+      height: 100vh;
+      background: var(--white);
+      overflow: hidden;
+    }
+
+    .main-content iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* ── LANDING PANEL ── */
+    .landing-hint-panel {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding: 3rem;
+    }
+
+    .landing-intro {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      width: 100%;
+    }
+
+    .intro-bio {
+      font-family: var(--font-display);
+      font-weight: 100;
+      font-size: 24pt;
+      line-height: 1.6;
+      letter-spacing: 0.02em;
+      color: #111;
+    }
+
+    .intro-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .intro-contact span,
+    .intro-contact a {
+      font-family: var(--font-display);
+      font-weight: 100;
+      font-size: 18pt;
+      line-height: 1.8;
+      letter-spacing: 0.02em;
+      color: #111;
+      text-decoration: none;
+      display: block;
+    }
+
+    .intro-contact a:hover {
+      font-weight: 400;
+    }
+
+    .linkedin-link:hover {
+      color: #d52228;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+
+      html,
+      body {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: auto;
+      }
+
+      .layout {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+      }
+
+      .sidebar {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        min-width: 100%;
+        height: auto;
+        border-right: none;
+        padding: 0.9rem 1.25rem 0;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        z-index: 100;
+      }
+
+      .logo-placeholder {
+        width: 60px;
+        height: auto;
+        margin: 0 auto 0.75rem;
+        visibility: hidden;
+      }
+
+      nav {
+        margin-top: 0;
+        width: 100%;
+        opacity: 0;
+        transition: opacity 0.7s ease;
+      }
+
+      nav.visible {
+        opacity: 1;
+      }
+
+      nav ul {
+        flex-direction: row;
+        justify-content: center;
+        gap: 0;
+        width: 100%;
+        border-top: 0.5px solid #2a2a2a;
+      }
+
+      nav ul li {
+        flex: 1;
+        text-align: center;
+        border-right: 0.5px solid #2a2a2a;
+      }
+
+      nav ul li:last-child {
+        border-right: none;
+      }
+
+      nav ul li a {
+        font-size: 0.65rem;
+        letter-spacing: 0.1em;
+        padding: 0.55rem 0.2rem;
+        display: block;
+        color: #555;
+      }
+
+      nav ul li a:hover,
+      nav ul li a.active {
+        color: var(--white);
+      }
+
+      .main-content {
+        margin-left: 0;
+        width: 100%;
+        height: auto;
+        min-height: calc(100vh - 110px);
+        overflow-y: auto;
+      }
+
+      .main-content iframe {
+        width: 100%;
+        height: calc(100vh - 110px);
+        border: none;
+        display: block;
+      }
+
+      .landing-hint-panel {
+        padding: 2rem 1.25rem;
+        align-items: flex-start;
+        min-height: calc(100vh - 110px);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="landing"></div>
+
+  <div id="logo-hero">
+    <img id="logoImg" src="" alt="Betty Amron">
+  </div>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="logo-placeholder" id="logoPlaceholder"></div>
+      <nav>
+        <ul>
+          <li><a href="#" class="nav-link" data-page="books.html">Books</a></li>
+          <li><a href="#" class="nav-link" data-page="animations.html">Animations</a></li>
+          <li><a href="#" class="nav-link" data-page="graphics.html">Graphics</a></li>
+          <li><a href="#" class="nav-link" data-page="fineart.html">Fine Art</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content" id="mainContent">
+      <div class="landing-hint-panel">
+        <div class="landing-intro">
+          <p class="intro-bio">Hello! My name is Betty Amron and I am studying Communication Design at Parsons School of
+            Design.</p>
+          <div class="intro-contact">
+            <span>amronbetty@gmail.com</span>
+            <span>+1 (202) 705 - 6565</span>
+            <a class="linkedin-link" href="https://www.linkedin.com/in/bettyamron" target="_blank"
+              rel="noopener">LinkedIn</a>
+            <div style="text-align: right;">
+              <span>last edited: June 2026</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // ── Shared reference to main content ──
+    const mainContent = document.getElementById('mainContent');
+
+    // ── Landing HTML snippet (reused by logo click) ──
+    const landingHTML = `
+    <div class="landing-hint-panel">
+      <div class="landing-intro">
+        <p class="intro-bio">Hello! My name is Betty Amron and I am studying Communication Design at Parsons School of Design.</p>
+        <div class="intro-contact">
+          <span>amronbetty@gmail.com</span>
+          <span>+1 (202) 705 - 6565</span>
+          <a class="linkedin-link" href="https://www.linkedin.com/in/bettyamron" target="_blank" rel="noopener">LinkedIn</a>
+          <div style="text-align: right;">
+            <span>last edited: May 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+    // ── Pick random logo ──
+    const logos = [
+      'images/logo1.png', 'images/logo2.png', 'images/logo3.png',
+      'images/logo4.png', 'images/logo5.png', 'images/logo6.png'
+    ];
+    const pick = logos[Math.floor(Math.random() * logos.length)];
+    document.getElementById('logoImg').src = pick;
+
+    const logo = document.getElementById('logo-hero');
+    const landing = document.getElementById('landing');
+    const placeholder = document.getElementById('logoPlaceholder');
+
+    // ── Center logo on screen ──
+    const startWidth = Math.min(window.innerWidth * 0.38, 340);
+    logo.style.width = startWidth + 'px';
+
+    let centered = false;
+
+    function centerLogo() {
+      if (centered) return;
+      centered = true;
+      const w = logo.offsetWidth;
+      const h = logo.offsetHeight;
+      logo.style.left = ((window.innerWidth - w) / 2) + 'px';
+      logo.style.top = ((window.innerHeight - h) / 2) + 'px';
+    }
+
+    document.getElementById('logoImg').onload = centerLogo;
+    if (document.getElementById('logoImg').complete) centerLogo();
+
+    // ── After 1.4s: fly logo to corner ──
+    setTimeout(() => {
+      const isMobile = window.innerWidth <= 768;
+      const rect = placeholder.getBoundingClientRect();
+
+      let endWidth, endLeft, endTop;
+
+      if (isMobile) {
+        endWidth = 60;
+        endLeft = (window.innerWidth - endWidth) / 2;
+        endTop = rect.top > 0 ? rect.top : 14;
+      } else {
+        endWidth = rect.width || 140;
+        endLeft = rect.left;
+        endTop = rect.top;
+      }
+
+      logo.style.transition = [
+        'left  0.9s cubic-bezier(0.77, 0, 0.175, 1)',
+        'top   0.9s cubic-bezier(0.77, 0, 0.175, 1)',
+        'width 0.9s cubic-bezier(0.77, 0, 0.175, 1)'
+      ].join(', ');
+
+      logo.style.left = endLeft + 'px';
+      logo.style.top = endTop + 'px';
+      logo.style.width = endWidth + 'px';
+
+      // ── After logo lands (0.9s): reveal layout ──
+      setTimeout(() => {
+        landing.classList.add('fade-out');
+        document.body.classList.add('revealed');
+        document.querySelector('.sidebar').classList.add('dark');
+
+        setTimeout(() => {
+          document.querySelector('nav').classList.add('visible');
+        }, 700);
+
+        // Enable logo hover + click to home
+        logo.classList.add('landed');
+        logo.addEventListener('click', () => {
+          document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+          mainContent.innerHTML = landingHTML;
+        });
+
+        setTimeout(() => landing.remove(), 800);
+
+      }, 950);
+
+    }, 1400);
+
+    // ── Shuffle colors across nav links ──
+    const palette = ['#345ba9', '#2dbcb3', '#fab317', '#af3b94', '#d52228', '#723d97'];
+    for (let i = palette.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [palette[i], palette[j]] = [palette[j], palette[i]];
+    }
+    document.querySelectorAll('.nav-link').forEach((link, i) => {
+      link.style.setProperty('--hover-color', palette[i]);
+    });
+
+    // ── Nav: load sections into right panel ──
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        const color = getComputedStyle(link).getPropertyValue('--hover-color').trim();
+        mainContent.innerHTML = `<iframe src="${link.dataset.page}?color=${encodeURIComponent(color)}" title="${link.textContent.trim()}"></iframe>`;
+      });
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animations — Betty Amron</title>
+
+  <script>
+    (function (d) {
+      var config = { kitId: 'our3wnf', scriptTimeout: 3000, async: true },
+        h = d.documentElement, t = setTimeout(function () { h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive"; }, config.scriptTimeout), tk = d.createElement("script"), f = false, s = d.getElementsByTagName("script")[0], a;
+      h.className += " wf-loading"; tk.src = 'https://use.typekit.net/' + config.kitId + '.js'; tk.async = true;
+      tk.onload = tk.onreadystatechange = function () { a = this.readyState; if (f || a && a != "complete" && a != "loaded") return; f = true; clearTimeout(t); try { Typekit.load(config) } catch (e) { } };
+      s.parentNode.insertBefore(tk, s);
+    })(document);
+  </script>
+
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --white: #f5f5f0;
+      --font-display: "adobe-ming-std", serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: var(--font-display);
+    }
+
+    .page {
+      padding: 3rem 3rem 6rem;
+      max-width: 100%;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(50pt, 1vw, 0.75rem);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 3rem;
+    }
+
+    /* ── PROJECT BLOCK ── */
+    .project {
+      margin-bottom: 5rem;
+      border-top: 1px solid #ddd;
+      padding-top: 2rem;
+    }
+
+    /* ── VIDEO PLAYER ── */
+    .video-wrap.six-by-fourfive {
+      aspect-ratio: 6 / 4.5;
+    }
+
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #111;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .video-wrap video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Placeholder shown when no video src is set */
+    .video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      background: #1a1a1a;
+      cursor: default;
+    }
+
+    .video-placeholder svg {
+      width: 36px;
+      height: 36px;
+      stroke: #444;
+      fill: none;
+      stroke-width: 1;
+    }
+
+    .video-placeholder span {
+      font-family: var(--font-display);
+      font-weight: 100;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #444;
+    }
+
+    /* Custom controls bar */
+    .video-controls {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.25rem 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .video-wrap:hover .video-controls {
+      opacity: 1;
+    }
+
+    .ctrl-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .ctrl-btn svg {
+      width: 36px;
+      height: 36px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    /* Play icon filled so it reads more clearly */
+    .icon-play {
+      fill: #fff;
+      stroke: none;
+    }
+
+    .progress-bar {
+      flex: 1;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 2px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #fff;
+      border-radius: 2px;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    .time-display {
+      font-family: var(--font-display);
+      font-weight: 100;
+      font-size: 20pt;
+      letter-spacing: 0.1em;
+      color: rgba(255, 255, 255, 0.7);
+      white-space: nowrap;
+    }
+
+    /* ── PROJECT META ── */
+    .project-meta {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 1rem 2rem;
+      align-items: start;
+    }
+
+    .project-title {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(30pt, 1.8vw, 1.4rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.1;
+      color: var(--black);
+    }
+
+    .project-year {
+      font-family: var(--font-display);
+      font-weight: 100;
+      font-size: 20pt;
+      letter-spacing: 0.15em;
+      color: #999;
+      margin-top: 0.4rem;
+    }
+
+    .project-description {
+      font-family: var(--font-display);
+      font-weight: 100;
+      font-size: 20pt;
+      line-height: 1.9;
+      color: #555;
+    }
+
+    @media (max-width: 600px) {
+      .page {
+        padding: 2rem 1.25rem 4rem;
+      }
+
+      .project-meta {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page">
+
+    <p class="section-title">Animations</p>
+
+    <!--
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║  HOW TO ADD A VIDEO:                                             ║
+  ║  In each .video-wrap, set the <video> src attribute:            ║
+  ║    <video src="videos/your-animation.mp4" ...>                  ║
+  ║  Then remove the .video-placeholder div inside that wrap.       ║
+  ║  Supported format: .mp4                                          ║
+  ╚══════════════════════════════════════════════════════════════════╝
+  -->
+
+    <!-- ── PROJECT 1 ── -->
+    <div class="project">
+      <div class="video-wrap">
+        <!--
+        Replace src="" with your video path e.g. src="videos/animation1.mp4"
+        Then delete the .video-placeholder div below.
+      -->
+        <video src="videos/animation1.mp4" preload="metadata" playsinline></video>
+
+        <div class="video-placeholder">
+          <svg viewBox="0 0 24 24">
+            <polygon points="5 3 19 12 5 21 5 3" />
+          </svg>
+          <span>Add video — src="videos/animation1.mp4"</span>
+        </div>
+
+        <div class="video-controls">
+          <button class="ctrl-btn play-btn" aria-label="Play">
+            <svg class="icon-play" viewBox="0 0 24 24">
+              <polygon points="5 3 19 12 5 21 5 3" />
+            </svg>
+            <svg class="icon-pause" viewBox="0 0 24 24" style="display:none">
+              <line x1="6" y1="4" x2="6" y2="20" />
+              <line x1="18" y1="4" x2="18" y2="20" />
+            </svg>
+          </button>
+          <div class="progress-bar">
+            <div class="progress-fill"></div>
+          </div>
+          <span class="time-display">0:00</span>
+          <button class="ctrl-btn mute-btn" aria-label="Mute">
+            <svg viewBox="0 0 24 24">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="project-meta">
+        <div>
+          <div class="project-title">Dance Party #2</div>
+          <div class="project-year">Spring 2024</div>
+        </div>
+        <p class="project-description">Captures the energy and enjoyment of Betty's community of friends, highlighting
+          their personalities and originality. Each frame was hand-drawn in Procreate and edited together in Adobe
+          Premiere Pro.</p>
+      </div>
+    </div>
+
+    <!-- ── PROJECT 2 ── -->
+    <div class="project">
+      <div class="video-wrap six-by-fourfive">
+        <video src="videos/animation2.mp4" preload="metadata" playsinline></video>
+
+        <div class="video-placeholder">
+          <svg viewBox="0 0 24 24">
+            <polygon points="5 3 19 12 5 21 5 3" />
+          </svg>
+          <span>Add video — src="videos/animation2.mp4"</span>
+        </div>
+
+        <div class="video-controls">
+          <button class="ctrl-btn play-btn" aria-label="Play">
+            <svg class="icon-play" viewBox="0 0 24 24">
+              <polygon points="5 3 19 12 5 21 5 3" />
+            </svg>
+            <svg class="icon-pause" viewBox="0 0 24 24" style="display:none">
+              <line x1="6" y1="4" x2="6" y2="20" />
+              <line x1="18" y1="4" x2="18" y2="20" />
+            </svg>
+          </button>
+          <div class="progress-bar">
+            <div class="progress-fill"></div>
+          </div>
+          <span class="time-display">0:00</span>
+          <button class="ctrl-btn mute-btn" aria-label="Mute">
+            <svg viewBox="0 0 24 24">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="project-meta">
+        <div>
+          <div class="project-title">A Spring Day</div>
+          <div class="project-year">Spring 2024</div>
+        </div>
+        <p class="project-description">Imagines the perfect spring day in New York City, highlighting a hand-dyed and
+          hand-knit top. Created out of still images edited in Adobe Premier Pro and hand-drawn line boils drawn in
+          Procreate.</p>
+      </div>
+    </div>
+
+    <!-- ── PROJECT 3 ── -->
+    <div class="project">
+      <div class="video-wrap">
+        <video src="videos/animation3.mp4" preload="metadata" playsinline></video>
+
+        <div class="video-placeholder">
+          <svg viewBox="0 0 24 24">
+            <polygon points="5 3 19 12 5 21 5 3" />
+          </svg>
+          <span>Add video — src="videos/animation3.mp4"</span>
+        </div>
+
+        <div class="video-controls">
+          <button class="ctrl-btn play-btn" aria-label="Play">
+            <svg class="icon-play" viewBox="0 0 24 24">
+              <polygon points="5 3 19 12 5 21 5 3" />
+            </svg>
+            <svg class="icon-pause" viewBox="0 0 24 24" style="display:none">
+              <line x1="6" y1="4" x2="6" y2="20" />
+              <line x1="18" y1="4" x2="18" y2="20" />
+            </svg>
+          </button>
+          <div class="progress-bar">
+            <div class="progress-fill"></div>
+          </div>
+          <span class="time-display">0:00</span>
+          <button class="ctrl-btn mute-btn" aria-label="Mute">
+            <svg viewBox="0 0 24 24">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="project-meta">
+        <div>
+          <div class="project-title">Dance Party #1</div>
+          <div class="project-year">Fall 2023</div>
+        </div>
+        <p class="project-description">Experimental animation incorporating audio elements meshed together from
+          chosen songs and hand-drawn frames in Procreate.</p>
+      </div>
+    </div>
+
+    <!-- /page -->
+
+    <script>
+      document.querySelectorAll('.video-wrap').forEach(wrap => {
+        const video = wrap.querySelector('video');
+        const placeholder = wrap.querySelector('.video-placeholder');
+        const playBtn = wrap.querySelector('.play-btn');
+        const iconPlay = wrap.querySelector('.icon-play');
+        const iconPause = wrap.querySelector('.icon-pause');
+        const progressBar = wrap.querySelector('.progress-bar');
+        const progressFill = wrap.querySelector('.progress-fill');
+        const timeDisplay = wrap.querySelector('.time-display');
+        const muteBtn = wrap.querySelector('.mute-btn');
+
+        // Hide placeholder once a real src is loaded
+        if (video.src && video.src !== window.location.href) {
+          if (placeholder) placeholder.style.display = 'none';
+        }
+
+        function formatTime(s) {
+          const m = Math.floor(s / 60);
+          const sec = Math.floor(s % 60).toString().padStart(2, '0');
+          return `${m}:${sec}`;
+        }
+
+        // Play / pause toggle function
+        function togglePlay() {
+          if (video.paused) {
+            video.play();
+            iconPlay.style.display = 'none';
+            iconPause.style.display = 'block';
+          } else {
+            video.pause();
+            iconPlay.style.display = 'block';
+            iconPause.style.display = 'none';
+          }
+        }
+
+        playBtn.addEventListener('click', togglePlay);
+        video.addEventListener('click', togglePlay);
+
+        // Progress
+        video.addEventListener('timeupdate', () => {
+          if (!video.duration) return;
+          const pct = (video.currentTime / video.duration) * 100;
+          progressFill.style.width = pct + '%';
+          timeDisplay.textContent = formatTime(video.currentTime);
+        });
+
+        // Seek
+        progressBar.addEventListener('click', e => {
+          const rect = progressBar.getBoundingClientRect();
+          const pct = (e.clientX - rect.left) / rect.width;
+          video.currentTime = pct * video.duration;
+        });
+
+        // Mute
+        muteBtn.addEventListener('click', () => {
+          video.muted = !video.muted;
+          muteBtn.style.opacity = video.muted ? '0.4' : '1';
+        });
+
+        // Reset icon on end
+        video.addEventListener('ended', () => {
+          iconPlay.style.display = 'block';
+          iconPause.style.display = 'none';
+        });
+      });
+    </script>
+
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const c = params.get("color");
+      if (c) {
+        const el = document.querySelector(".section-title");
+        if (el) el.style.color = decodeURIComponent(c);
+      }
+    </script>
+</body>
+
+</html>

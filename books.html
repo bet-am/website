@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Books — Betty Amron</title>
+
+  <script>
+    (function (d) {
+      var config = { kitId: 'our3wnf', scriptTimeout: 3000, async: true },
+        h = d.documentElement, t = setTimeout(function () { h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive"; }, config.scriptTimeout), tk = d.createElement("script"), f = false, s = d.getElementsByTagName("script")[0], a;
+      h.className += " wf-loading"; tk.src = 'https://use.typekit.net/' + config.kitId + '.js'; tk.async = true;
+      tk.onload = tk.onreadystatechange = function () { a = this.readyState; if (f || a && a != "complete" && a != "loaded") return; f = true; clearTimeout(t); try { Typekit.load(config) } catch (e) { } };
+      s.parentNode.insertBefore(tk, s);
+    })(document);
+  </script>
+
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --white: #f5f5f0;
+      --font-display: "adobe-ming-std", serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: var(--font-display);
+    }
+
+    .page {
+      padding: 3rem 3rem 6rem;
+      max-width: 100%;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(50pt, 1vw, 0.75rem);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 3rem;
+    }
+
+    .project {
+      margin-bottom: 5rem;
+      border-top: 1px solid #ddd;
+      padding-top: 2rem;
+    }
+
+    /* ── SLIDESHOW ── */
+    .slideshow {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: #e0e0da;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .slideshow.square {
+      aspect-ratio: 1 / 1;
+      width: 75%;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 1.5rem;
+    }
+
+    .slideshow.sevenbyfive {
+      aspect-ratio: 7 / 5;
+    }
+
+    .slides-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    .slide {
+      min-width: 100%;
+      height: 100%;
+      flex-shrink: 0;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .slide-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #e8e8e2;
+    }
+
+    .slide-placeholder span {
+      font-family: var(--font-display);
+      font-weight: 100;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #bbb;
+    }
+
+    .slide-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 1rem;
+      z-index: 10;
+      color: var(--black);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .slideshow:hover .slide-btn {
+      opacity: 1;
+    }
+
+    .slide-btn.prev {
+      left: 0;
+    }
+
+    .slide-btn.next {
+      right: 0;
+    }
+
+    .slide-btn svg {
+      width: 96px;
+      height: 96px;
+      stroke: var(--black);
+      stroke-width: 1;
+      fill: none;
+    }
+
+    .slide-dots {
+      position: absolute;
+      bottom: 0.75rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 10;
+    }
+
+    .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .dot.active {
+      background: var(--black);
+    }
+
+    .project-meta {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 1rem 2rem;
+      align-items: start;
+    }
+
+    .project-title {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(30pt, 1.8vw, 1.4rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.1;
+      color: var(--black);
+    }
+
+    .project-year {
+      font-family: var(--font-display);
+      font-weight: 100;
+      font-size: 20pt;
+      letter-spacing: 0.15em;
+      color: #999;
+      margin-top: 0.4rem;
+    }
+
+    .project-description {
+      font-family: var(--font-display);
+      font-weight: 100;
+      font-size: 20pt;
+      line-height: 1.9;
+      color: #555;
+    }
+
+    @media (max-width: 600px) {
+      .page {
+        padding: 2rem 1.25rem 4rem;
+      }
+
+      .project-meta {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <p class="section-title">Books</p>
+
+    <!-- ── PROJECT 1 ── -->
+    <div class="project">
+      <div class="slideshow sevenbyfive" data-index="0">
+        <div class="slides-track">
+          <div class="slide"><img src="images/DD01.JPG" alt="Districting Design slip cover"></div>
+          <div class="slide"><img src="images/DD02.JPG" alt="Districting Design front cover, sewn binding"></div>
+          <div class="slide"><img src="images/DD03.JPG" alt="Districting Design title page"></div>
+          <div class="slide"><img src="images/DD04.JPG" alt="Districting Design introduction"></div>
+          <div class="slide"><img src="images/DD05.JPG" alt="Districting Design Carlotta with map"></div>
+          <div class="slide"><img src="images/DD06.JPG" alt="Districting Design Carlotta transparencies"></div>
+          <div class="slide"><img src="images/DD07.JPG" alt="Districting Design Hiro Matsuoka"></div>
+          <div class="slide"><img src="images/DD08.JPG" alt="Districting Design Christina transparency"></div>
+          <div class="slide"><img src="images/DD09.JPG" alt="Districting Design artists map"></div>
+        </div>
+        <button class="slide-btn prev" aria-label="Previous"><svg viewBox="0 0 24 24">
+            <polyline points="15 18 9 12 15 6" />
+          </svg></button>
+        <button class="slide-btn next" aria-label="Next"><svg viewBox="0 0 24 24">
+            <polyline points="9 6 15 12 9 18" />
+          </svg></button>
+        <div class="slide-dots">
+          <div class="dot active"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+
+        </div>
+      </div>
+      <div class="project-meta">
+        <div>
+          <div class="project-title">Districting Design</div>
+          <div class="project-year">Spring 2026</div>
+        </div>
+        <p class="project-description">An embossed slipcover encloses a book hand-sewn with a Japanese binding, which
+          highlights ten Barcelona-based designers and features three original interviews. A secondary grid of
+          Barcelona neighborhoods overlayed on transparent paper shows where each designer is based.</p>
+      </div>
+    </div>
+
+    <!-- ── PROJECT 2 (square aspect ratio) ── -->
+    <div class="project">
+      <div class="slideshow square" data-index="0">
+        <div class="slides-track">
+          <div class="slide"><img src="images/Coalesce1.png" alt="Coalesce definition"></div>
+          <div class="slide"><img src="images/Coalesce2.png" alt="Coalesce artist statement"></div>
+          <div class="slide"><img src="images/Coalesce3.png" alt="Coalesce page 9"></div>
+          <div class="slide"><img src="images/Coalesce4.png" alt="Coalesce page 11"></div>
+          <div class="slide"><img src="images/Coalesce5.png" alt="Coalesce page 13"></div>
+          <div class="slide"><img src="images/Coalesce6.png" alt="Coalesce page 15"></div>
+          <div class="slide"><img src="images/Coalesce7.png" alt="Coalesce colophon"></div>
+          <div class="slide"><img src="images/Coalesce8.png" alt="Coalesce front cover"></div>
+          <div class="slide"><img src="images/Coalesce9.png" alt="Coalesce back cover"></div>
+        </div>
+        <button class="slide-btn prev" aria-label="Previous"><svg viewBox="0 0 24 24">
+            <polyline points="15 18 9 12 15 6" />
+          </svg></button>
+        <button class="slide-btn next" aria-label="Next"><svg viewBox="0 0 24 24">
+            <polyline points="9 6 15 12 9 18" />
+          </svg></button>
+        <div class="slide-dots">
+          <div class="dot active"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+
+        </div>
+      </div>
+      <div class="project-meta">
+        <div>
+          <div class="project-title">Coalesce</div>
+          <div class="project-year">Fall 2025</div>
+        </div>
+        <p class="project-description">This project emphasized the bringing together of disparate elements into a
+          unified whole where a tight grid system organizes the content and a hand-sewn binding and cover emphasize the
+          chosen artists'
+          craftsmanship.</p>
+      </div>
+    </div>
+
+    <!-- ── PROJECT 3 ── -->
+    <div class="project">
+      <div class="slideshow sevenbyfive" data-index="0">
+        <div class="slides-track">
+          <div class="slide"><img src="images/hands01.png" alt="Hands & Shoes openlay"></div>
+          <div class="slide"><img src="images/hands02.png" alt="Hands & Shoes quote pages"></div>
+          <div class="slide"><img src="images/hands03.png" alt="Hands & Shoes open book"></div>
+          <div class="slide"><img src="images/hands04.png" alt="Hands & Shoes pg 2"></div>
+          <div class="slide"><img src="images/hands05.png" alt="Hands & Shoes pg 6"></div>
+          <div class="slide"><img src="images/hands06.png" alt="Hands & Shoes slip cover"></div>
+
+        </div>
+        <button class="slide-btn prev" aria-label="Previous"><svg viewBox="0 0 24 24">
+            <polyline points="15 18 9 12 15 6" />
+          </svg></button>
+        <button class="slide-btn next" aria-label="Next"><svg viewBox="0 0 24 24">
+            <polyline points="9 6 15 12 9 18" />
+          </svg></button>
+        <div class="slide-dots">
+          <div class="dot active"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+
+        </div>
+      </div>
+      <div class="project-meta">
+        <div>
+          <div class="project-title">Hands & Shoes</div>
+          <div class="project-year">Fall 2025</div>
+        </div>
+        <p class="project-description">Inspired by the idea of first impressions being formed through details like a
+          person's hands and shoes, this postcard set draws a parallel to how postcards reveal their story only when
+          turned over. A slipcover encloses pairs of original film photographs collected from strangers, presenting each
+          person's hands and shoes before the written information on the reverse side is revealed.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── PROJECT 4 ── -->
+    <div class="project">
+      <div class="slideshow sevenbyfive" data-index="0">
+        <div class="slides-track">
+          <div class="slide"><img src="images/ba01.png" alt="Betty's Adventures book set spread"></div>
+          <div class="slide"><img src="images/ba02-2.png" alt="Betty's Adventures box set"></div>
+          <div class="slide"><img src="images/ba03.JPG" alt="Betty's Adventures book 1 pg 10"></div>
+          <div class="slide"><img src="images/ba04.JPG" alt="Betty's Adventures end of book 1"></div>
+
+        </div>
+        <button class="slide-btn prev" aria-label="Previous"><svg viewBox="0 0 24 24">
+            <polyline points="15 18 9 12 15 6" />
+          </svg></button>
+        <button class="slide-btn next" aria-label="Next"><svg viewBox="0 0 24 24">
+            <polyline points="9 6 15 12 9 18" />
+          </svg></button>
+        <div class="slide-dots">
+          <div class="dot active"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+
+        </div>
+      </div>
+      <div class="project-meta">
+        <div>
+          <div class="project-title">Betty's Adventures</div>
+          <div class="project-year">Fall 2024</div>
+        </div>
+        <p class="project-description">Using children's book box sets as inspiration, this project documents the four
+          projects completed throughout Typography II as a cohesive collection. The packaging and printed materials
+          feature a
+          typeface developed in class, tying the work together through a shared visual language.</p>
+      </div>
+    </div>
+
+
+    <!-- ── PROJECT 5 ── -->
+    <div class="project">
+      <div class="slideshow sevenbyfive" data-index="0">
+        <div class="slides-track">
+          <div class="slide"><img src="images/ptm01.JPG" alt="Personifying the Mundane open book"></div>
+          <div class="slide"><img src="images/ptm02.JPG" alt="Personifying the Mundane front cover"></div>
+          <div class="slide"><img src="images/ptm03.JPG" alt="Personifying the Mundane process and inspiration"></div>
+          <div class="slide"><img src="images/ptm04.JPG" alt="Personifying the Mundane pattern page"></div>
+          <div class="slide"><img src="images/ptm05.JPG" alt="Personifying the Mundane Sara Marie 1"></div>
+          <div class="slide"><img src="images/ptm06.JPG" alt="Personifying the Mundane Sara Marie 2"></div>
+          <div class="slide"><img src="images/ptm07.JPG" alt="Personifying the Mundane Sherri 1"></div>
+          <div class="slide"><img src="images/ptm08.JPG" alt="Personifying the Mundane Sherri 2"></div>
+
+        </div>
+        <button class="slide-btn prev" aria-label="Previous"><svg viewBox="0 0 24 24">
+            <polyline points="15 18 9 12 15 6" />
+          </svg></button>
+        <button class="slide-btn next" aria-label="Next"><svg viewBox="0 0 24 24">
+            <polyline points="9 6 15 12 9 18" />
+          </svg></button>
+        <div class="slide-dots">
+          <div class="dot active"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+
+        </div>
+      </div>
+      <div class="project-meta">
+        <div>
+          <div class="project-title">Personifying the Mundane</div>
+          <div class="project-year">Spring 2026</div>
+        </div>
+        <p class="project-description">This book explores the personification of mundane parts of everyday life, giving
+          character to overlooked moments, like the hair found stuck to the shower wall. It was created alongside twelve
+          bathroom models that embody the personalities found inside the hair shapes. The hand-bound hardcover and
+          transition
+          pages within the book feature a pattern of all the illustrated
+          faces.
+        </p>
+      </div>
+    </div>
+
+    <!-- /page -->
+
+    <script>
+      document.querySelectorAll('.slideshow').forEach(show => {
+        const track = show.querySelector('.slides-track');
+        const dots = show.querySelectorAll('.dot');
+        const total = show.querySelectorAll('.slide').length;
+        let current = 0;
+
+        function goTo(n) {
+          current = (n + total) % total;
+          track.style.transform = `translateX(-${current * 100}%)`;
+          dots.forEach((d, i) => d.classList.toggle('active', i === current));
+        }
+
+        show.querySelector('.prev').addEventListener('click', () => goTo(current - 1));
+        show.querySelector('.next').addEventListener('click', () => goTo(current + 1));
+        dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+      });
+    </script>
+
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const c = params.get("color");
+      if (c) {
+        const el = document.querySelector(".section-title");
+        if (el) el.style.color = decodeURIComponent(c);
+      }
+    </script>
+
+</body>
+
+</html>
